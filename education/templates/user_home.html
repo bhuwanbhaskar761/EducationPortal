@@ -1,0 +1,66 @@
+{% extends 'carousel.html' %}
+{% block body1 %}
+{% load static %}
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial;
+  font-size: 17px;
+}
+
+.container {
+  position: relative;
+  max-width: 90%;
+  margin: 0 auto;
+  margin-bottom:3%
+}
+
+.container img {vertical-align: middle;}
+
+.container .content {
+  position: absolute;
+  bottom: 0;
+  background: rgb(0, 0, 0); /* Fallback color */
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+
+}
+</style>
+
+
+
+<div class="container">
+    <h2 style="font-family : 'Monotype Corsiva' ;color:red;margin-top:4%;">Provide Online Course</h2><hr>
+    <div class="row">
+        <div class="col-md-3">
+       <h4 style="color:black">Learn from subject expert and award winning teachers at IIT Bombay</h4>
+
+</div>
+        <div class="col-md-3">
+            <img src="{% static 'images/html.png' %}" alt="Notebook" style="width:100%;">
+  <div class="content" style="height:30px;width:91%">
+
+<p>HTML Course</p>
+  </div>
+</div> <div class="col-md-3">
+            <img src="{% static 'images/python.jpg' %}" alt="Notebook" style="width:100%;">
+  <div class="content" style="height:30px;width:91%">
+
+    <p>Python Course</p>
+  </div>
+</div> <div class="col-md-3">
+            <img src="{% static 'images/web_design.jpg' %}" alt="Notebook" style="width:100%;">
+  <div class="content" style="height:30px;width:91%">
+
+    <p>Web Design Course</p>
+  </div>
+</div>
+    </div>
+</div>
+
+
+{% endblock %}

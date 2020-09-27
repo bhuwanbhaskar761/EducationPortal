@@ -1,0 +1,67 @@
+{% extends 'navigation.html' %}
+{% block body %}
+<div class="container-fluid">
+<h2 style="margin-top:1%;margin-left:3%">{{assign.assignment.course.title}}</h2><hr>
+    <p>Assignment Detail</p>
+<div class="container" style="width:50%;margin-top:5%;font-weight:bold">
+    <div class="row">
+        <div class="col-md-6">
+            Assignment Title
+        </div>
+        <div class="col-md-6" style="color:brown">
+            {{assign.assignment.title}}
+        </div>
+    <div class="col-md-6">
+            Description
+        </div>
+        <div class="col-md-6" style="color:brown">
+            {{assign.assignment.question}}
+        </div>
+    <div class="col-md-6">
+            Publish Date
+        </div>
+        <div class="col-md-6" style="color:brown">
+            {{assign.assignment.publish_date}}
+        </div>
+    <div class="col-md-6">
+            Deadline
+        </div>
+        <div class="col-md-6" style="color:brown">
+            {{assign.assignment.end_date}}
+        </div>
+    <div class="col-md-6">
+            Files to be submitted
+        </div>
+        <div class="col-md-6" style="color:brown">
+            Any Files is accepted.
+        </div>
+
+        <div class="col-md-6">
+            Useful Files
+        </div>
+        <div class="col-md-6" style="color:brown">
+            <a href="{{i.assignment.file.url}}" download>Assignment documents</a>
+        </div>
+    </div><hr>
+    <p align="center" style="font-weight:bold">Submit Assignment Now</p>
+    <form method="post" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                <input type="file" name="file1" />
+            </div>
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+{% ifequal error "create" %}
+<script>
+    alert('Assignment Uploaded Successfully');
+    window.location="{% url 'course_section' assign.assignment.course.id %}";
+</script>
+{% endifequal %}
+
+{% endblock %}

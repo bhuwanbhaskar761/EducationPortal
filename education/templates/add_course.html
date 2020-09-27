@@ -1,0 +1,49 @@
+{% extends 'instruct_nav.html' %}
+{% block body %}
+{% load static %}
+
+<div class="container-fluid" style="width:70%;margin-top:2%">
+
+    <center><h2 style = "font-family : 'Monotype Corsiva' ; color : #E6120E ;
+ font-weight : bold;margin-top:1%">Add Course</h2></center><hr>
+<form method="post" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-row">
+    <div class="form-group col-md-12">
+      <label for="inputEmail4">Course Title</label>
+      <input type="text" class="form-control" placeholder="Enter Course Name" name="course" id="inputEmail4">
+    </div>
+
+  </div>
+    <div class="form-row">
+    <div class="form-group col-md-12">
+    <label for="exampleInputPassword1">Start Date</label>
+    <input type="date" class="form-control" id="exampleInputPassword1" name="date1">
+    </div></div>
+
+    <div class="form-row">
+    <div class="form-group col-md-12">
+      <label for="inputEmail4">End Date</label>
+      <input type="date" class="form-control" name="date2" id="inputEmail4">
+    </div></div>
+
+    <div class="form-row">
+    <div class="form-group col-md-12">
+      <label for="inputPassword4">Image</label>
+      <input type="file" class="form-control"  name="image" id="inputPassword4">
+    </div>
+  </div>
+
+            <button type="submit" class="btn btn-danger">Submit</button>
+</form>
+</div></div>
+
+
+{% if error %}
+<script>
+    alert('Add Course Successfully');
+    window.location = "{% url 'view_course' %}";
+</script>
+{% endif %}
+
+{% endblock %}

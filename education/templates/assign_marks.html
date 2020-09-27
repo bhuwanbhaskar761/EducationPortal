@@ -1,0 +1,32 @@
+{% extends 'instruct_nav.html' %}
+{% block body %}
+{% load static %}
+
+{% if error %}
+<script>
+    alert('Assigned Marks successfully');
+    window.location=('{% url 'view_assignment' %}');
+</script>
+{% endif %}
+
+
+<div class="container-fluid" style="width:70%;margin-top:10%">
+
+      <h2 class="text-center">Assign Marks</h2><hr>
+
+      <form method="post" action="">
+    {% csrf_token %}
+  <div class="form-group">
+    <label for="exampleInputEmail1">Assign Marks</label>
+    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="marks">
+  </div>
+  <center><button type="submit" class="btn btn-danger" style="margin-top:3%">SUBMIT</button>
+</center>
+      </form>
+    </div>
+  </div>
+
+</div>
+</div>
+
+{% endblock %}

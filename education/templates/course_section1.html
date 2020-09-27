@@ -1,0 +1,204 @@
+{% extends 'navigation.html' %}
+{% block body %}
+{% load static %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {
+  font-family: "Lato", sans-serif;
+}
+
+/* Fixed sidenav, full height */
+
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: Black;
+  display: block;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+  color: white;
+  background-color:black;
+}
+
+/* Main content */
+.main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+  font-size: 20px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+.active {
+  color: black;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+  display: none;
+  background-color: Grey;
+  color:black;
+  padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+  float: right;
+  padding-right: 8px;
+}
+
+/* Some media queries for responsiveness */
+@media screen and (max-height: 100%) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+#container
+{
+    height:400px;
+    width:100%;
+    position:relative;
+}
+.btn1{
+    width:80%;
+}
+.text
+{
+    position:absolute;
+    color:red;
+    font-size:15px;
+    font-weight:bold;
+    left:0;
+    display:none;
+}
+
+.clicked{
+    border : 3px solid #000;
+}</style>
+
+<div class="container-fluid">
+<h2 style="margin-top:1%;margin-left:3%">{{course.title}}</h2><hr>
+<div class="row" style="margin-top:1%;margin-left:3%">
+    <div class="col-md-4">
+        <div class="container">
+            <h2>Content</h2><hr>
+            <button class="btn btn-success btn1 active" id ="btn-1"
+                    onclick='document.getElementById("demo").innerHTML = ""'>Multimedia</button>
+            <br><br><button class="btn btn-success btn1" id ="btn-2" onclick='document.getElementById("demo").innerHTML = ""'>Assignment</button>
+
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="main">
+            <h2 id="demo" style="color:red">
+                <i  class="fa fa-hand-o-left fa-2x"></i>
+                Please Click on the Button for Particular Event.</h2>
+            <div class="text" id="text-1" style="width:90%">
+<h3>Multimedia Book</h3><hr>
+ <div class="container-fluid" style="margin-top:5%">
+</div>
+ <div class="container">
+                <div class="sidenav">
+                    {% for j in book %}
+                    <button class="dropdown-btn btn btn-primary" style="margin-top:3%;padding:2%;width:100%;">{{j.book_title}}
+                    <i class="fa fa-caret-down"></i>
+                    </button>
+                <div class="dropdown-container" style="width:100%">
+                    {% for k in topic %}
+                    {% ifequal k.book.book_title j.book_title %}
+                        <a href="{{k.topic_file.url}}" download>{{k.topic_name}}</a>
+                        {% endifequal %}
+                {% endfor %}
+                </div>
+                    {% endfor %}
+                    </div></div>
+ </div>
+
+
+
+<div class="text" id="text-2" style="width:90%">
+    <h3>Assignment</h3><hr>
+    <div class="container" style="margin-top:5%">
+    </div>
+        <div class="container">
+    <table class="table table-bordered" id="myTable" style="color:black">
+  <thead>
+  <tr>
+    <th>Sr.No.</th>
+    <th>AssignmentName</th>
+    <th>Status</th>
+    <th>MarksObtain</th>
+    <th>PublishDate</th>
+    <th>Deadline</th>
+  </tr>
+  </thead>
+   <tbody>
+
+{% for i in assign %}
+{% ifequal i.assignment.course.id course.id %}
+  <tr>
+      <td>{{forloop.counter}}</td>
+      <td>
+          {% if i.status.status != "NotSubmitted" %}
+          <a href="#">{{i.assignment.title}}</a></td>
+          {% else %}
+          <a href="{% url 'upload_assignment' i.id %}">{{i.assignment.title}}</a></td>
+      {% endif %}
+      <td>{{i.status.status}}</td>
+      <td style="color:Darkred">{{i.marks}}</td>
+    <td>{{i.assignment.publish_date}}</td>
+    <td>{{i.assignment.end_date}}</td>
+  </tr>
+{% endifequal %}
+   {% endfor %}
+
+    </tbody>
+</table>
+
+ </div>
+        </div>
+        </div></div></div></div>
+
+<script>
+    $('.btn').click(function(){
+    $('.btn').removeClass("clicked");
+});
+
+$('#btn-1').click(function(){
+    $('.text').hide();
+	$('#text-1').show();
+    $('#btn-1').toggleClass("clicked"); //<== toggleClass
+});
+
+$('#btn-2').click(function(){
+    $('.text').hide();
+	$('#text-2').show();
+    $('#btn-2').toggleClass("clicked");
+});
+</script>
+
+<script>
+/* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+var dropdown = document.getElementsByClassName("dropdown-btn");
+var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+  this.classList.toggle("active");
+  var dropdownContent = this.nextElementSibling;
+  if (dropdownContent.style.display === "block") {
+  dropdownContent.style.display = "none";
+  } else {
+  dropdownContent.style.display = "block";
+  }
+  });
+}
+</script>
+{% endblock %}

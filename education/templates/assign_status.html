@@ -1,0 +1,36 @@
+{% extends 'instruct_nav.html' %}
+{% block body %}
+{% load static %}
+
+{% if error %}
+<script>
+    alert('Assigned Status successfully');
+    window.location=('{% url 'view_enroll_req' %}');
+</script>
+{% endif %}
+
+
+<div class="container-fluid" style="width:70%;margin-top:10%">
+
+      <h2 class="text-center">Assign Status</h2><hr>
+
+      <form method="post" action="">
+    {% csrf_token %}
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Assign Status</label>
+    <select class="form-control" id="exampleFormControlSelect1" name="status">
+        {% for i in status %}
+      <option value="{{i.status}}">{{i.status}}</option>
+        {% endfor %}
+    </select>
+  </div>
+  <center><button type="submit" class="btn btn-danger" style="margin-top:3%">SUBMIT</button>
+</center>
+      </form>
+    </div>
+  </div>
+
+</div>
+</div>
+
+{% endblock %}

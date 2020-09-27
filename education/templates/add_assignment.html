@@ -1,0 +1,65 @@
+{% extends 'instruct_nav.html' %}
+{% block body %}
+{% load static %}
+
+<div class="container-fluid" style="width:70%;margin-top:2%">
+
+    <center><h2 style = "font-family : 'Monotype Corsiva' ; color : #E6120E ;
+ font-weight : bold;margin-top:1%">Add Assignment</h2></center><hr>
+<form method="post" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+    <label for="exampleFormControlSelect1">Course Title</label>
+    <select class="form-control" id="exampleFormControlSelect1" name="course">
+        {% for i in course %}
+      {% ifequal i.instruct.sign.user.id request.user.id %}
+      <option value="{{i.title}}">{{i.title}}</option>
+       {% endifequal %}
+        {% endfor %}
+    </select>
+  </div>
+    <div class="form-row">
+    <div class="form-group col-md-12">
+    <label for="exampleInputPassword1">Assignment Title</label>
+    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Topic Name" name="assign_title">
+    </div></div>
+
+    <div class="form-row">
+    <div class="form-group col-md-12">
+    <label for="exampleInputPassword1">Description(Assignment Question)</label>
+    <textarea type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Topic Name" name="desc">
+    </textarea>
+    </div></div>
+
+    <div class="form-row">
+    <div class="form-group col-md-12">
+    <label for="exampleInputPassword1">Publish Date</label>
+    <input type="date" class="form-control" id="exampleInputPassword1" name="date1">
+    </div></div>
+
+    <div class="form-row">
+    <div class="form-group col-md-12">
+    <label for="exampleInputPassword1">End Date</label>
+    <input type="date" class="form-control" id="exampleInputPassword1" name="date2">
+    </div></div>
+
+    <div class="form-row">
+    <div class="form-group col-md-12">
+      <label for="inputPassword4">Assignment Document</label>
+      <input type="file" class="form-control"  name="file" id="inputPassword4">
+    </div>
+  </div>
+
+    <button type="submit" class="btn btn-danger">Submit</button>
+</form>
+</div></div>
+
+
+{% if error %}
+<script>
+    alert('Add Assignment Successfully');
+    window.location = "{% url 'view_assignment' %}";
+</script>
+{% endif %}
+
+{% endblock %}

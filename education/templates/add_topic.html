@@ -1,0 +1,46 @@
+{% extends 'instruct_nav.html' %}
+{% block body %}
+{% load static %}
+
+<div class="container-fluid" style="width:70%;margin-top:2%">
+
+    <center><h2 style = "font-family : 'Monotype Corsiva' ; color : #E6120E ;
+ font-weight : bold;margin-top:1%">Add Topic</h2></center><hr>
+<form method="post" action="" enctype="multipart/form-data" name="course">
+    {% csrf_token %}
+    <div class="form-group">
+    <label for="exampleFormControlSelect1">Book Title</label>
+    <select class="form-control" id="exampleFormControlSelect1" name="course">
+        {% for i in book %}
+        {% ifequal i.course.instruct.sign.user.id request.user.id %}
+      <option value="{{i.book_title}}">{{i.book_title}}</option>
+        {% endifequal %}
+        {% endfor %}
+    </select>
+  </div>
+    <div class="form-row">
+    <div class="form-group col-md-12">
+    <label for="exampleInputPassword1">Topic Name</label>
+    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Topic Name" name="topic_name">
+    </div></div>
+
+    <div class="form-row">
+    <div class="form-group col-md-12">
+      <label for="inputPassword4">Topic File</label>
+      <input type="file" class="form-control"  name="file" id="inputPassword4">
+    </div>
+  </div>
+
+    <button type="submit" class="btn btn-danger">Submit</button>
+</form>
+</div></div>
+
+
+{% if error %}
+<script>
+    alert('Add Topic Successfully');
+    window.location = "{% url 'view_topic' %}";
+</script>
+{% endif %}
+
+{% endblock %}

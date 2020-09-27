@@ -1,0 +1,17 @@
+{% extends 'navigation.html' %}
+{% block body %}
+{% load static %}
+<center><h2 style = "font-family : 'Monotype Corsiva' ; color : #E6120E ;
+ font-weight : bold;margin-top:2%">MY COURSES</h2></center><hr>
+<div class="container" style="margin-top:5%">
+
+{% for i in enroll %}
+{% ifequal i.status.status "Accept" %}
+<a href="{% url 'course_section' i.course.id %}" id="btn-1"><div class="container" style="margin:4%;background-color:lightgrey;padding:8px">
+    <h2 style="color:red">{{i.course.title}}</h2><hr>
+    <p>Course end : {{i.course.end_date}}</p>
+</div></a>
+{% endifequal %}
+{% endfor %}
+    </div>
+{% endblock %}
